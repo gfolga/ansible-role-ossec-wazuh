@@ -1,0 +1,7 @@
+---
+# handlers file for ossec-wazuh
+
+- name: start ossec
+  service: name=ossec
+           state=started
+           enabled=yes

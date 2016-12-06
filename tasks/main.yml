@@ -1,0 +1,60 @@
+---
+# tasks file for ossec-wazuh
+- name: Install ossec wazuh required packages for compilation
+  yum: state=latest name={{ item }}
+  with_items:
+    - gcc
+    - make
+    - git
+    - openssl-devel
+    - epel-release
+    - xmlstarlet
+
+
+- name: Stop Ossec
+  command: "/var/ossec/bin/ossec-control stop"
+  ignore_errors: yes
+
+- name: Clean OSSEC directory
+  file: path=/var/ossec
+        state=absent
+  ignore_errors: yes
+
+#- name: create folder ossec_tmp
+#  file: path=/root/ossec_tmp state=directory
+
+- name: download file ossec-wazuh
+  get_url:
+    url: https://github.com/wazuh/ossec-wazuh/archive/v1.1.1.tar.gz
+    dest: /root/v1.1.1.tar.gz
+
+- name: extract ossec-wazuh source
+  unarchive:
+    src=/root/v1.1.1.tar.gz
+    dest=/root/
+    creates=/root/wazuh-1.1.1
+    copy=no
+
+- name: Configure Preloaded ossec vars (needed for automatic installation)
+  template: src=preloaded-vars.conf.j2
+            dest=/root/wazuh-1.1.1/etc/preloaded-vars.conf
+
+- name: Compile and install ossec-wazuh
+  command: "/root/wazuh-1.1.1/install.sh        
+            chdir=/root/wazuh-1.1.1"
+  notify: start ossec
+
+
+- name: Change ossec mail from
+  command: "xmlstarlet edit --inplace --omit-decl --update '/ossec_config/global/email_from' --value '{{ ossec_email_from }}' /var/ossec/etc/ossec.conf"
+  notify: start ossec
+
+
+#- name: create folder ossec_tmp
+#  file: path=/root/ossec_tmp/ossec-wazuh state=directory
+
+#- unarchive: 
+#    src=https://github.com/wazuh/ossec-wazuh/archive/v1.1.1.tar.gz
+#    dest=/root/ossec_tmp/ossec-wazuh
+#    remote_src=yes
+

@@ -1,0 +1,4 @@
+---
+# defaults file for ossec-wazuh
+#
+ossec_email_from: ossec@smartblot.com
