@@ -5,3 +5,10 @@
   service: name=ossec
            state=started
            enabled=yes
+
+
+- name: start httpd
+  service: name=httpd
+           state=started
+           enabled=yes
+
