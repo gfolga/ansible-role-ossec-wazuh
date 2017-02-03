@@ -11,7 +11,8 @@ None
 Role Variables
 --------------
 
-None
+- ossec_email_from: Ossec email from value. Default value:ossec@smartblot.com.
+
 
 Dependencies
 ------------
