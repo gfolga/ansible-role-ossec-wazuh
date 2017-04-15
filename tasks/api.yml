@@ -1,0 +1,23 @@
+- name: download wazhu-api
+  get_url: url=https://github.com/wazuh/wazuh-api/archive/v{{ ossec_wazuh_api_version }}.tar.gz
+           dest=/tmp/wazuh-API-{{ ossec_wazuh_api_version }}.tar.gz
+
+- name: unzip wazuh api software
+  unarchive: src="/tmp/wazuh-API-{{ ossec_wazuh_api_version }}.tar.gz"  dest="/var/ossec" copy=no creates=/var/ossec/api/app.js
+
+- name: wazuh api link
+  file: src=/var/ossec/wazuh-api-{{ ossec_wazuh_api_version }} dest=/var/ossec/api owner=root group=ossec state=link
+
+- name: wazuh api config
+  template: src=api_config.js.j2 dest=/var/ossec/api/config.js owner=root group=ossec
+  notify:
+    - restart wazuh-api
+
+- name: install wazuh api
+  npm: path=/var/ossec/api global=no
+
+- name: init script for wazuh api
+  template: src=wazuh_api.j2 dest=/etc/init.d/wazuh-api owner=root group=root mode=0755
+
+- name: service enabled ( wazuh api )
+  service: name=wazuh-api state=started enabled=yes

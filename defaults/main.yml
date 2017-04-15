@@ -2,7 +2,13 @@
 # defaults file for ossec-wazuh
 #
 ossec_wazuh_version: 1.1.1
+ossec_wazuh_api_version: 1.2.1
 ossec_email_from: ""
 ossec_email_address: ""
 ossec_enable_email: "n"
 ossec_clean_previous: true
+ossec_wazuh_api: true
+ossec_wazuh_api_config_https: "no"
+ossec_wazuh_api_config_basic_auth: "no"
+ossec_wazuh_api_config_port: "55000"
+ossec_wazuh_api_config_https: "no"

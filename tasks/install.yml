@@ -1,0 +1,49 @@
+---
+
+- name: Stop Ossec
+  command: "/var/ossec/bin/ossec-control stop"
+  ignore_errors: yes
+  when: ossec_clean_previous
+
+- name: Stop Wazuh-API
+  command: "/etc/init.d/wazuh-api stop"
+  ignore_errors: yes
+  when: ossec_clean_previous
+
+- name: Clean OSSEC directory
+  file: path=/var/ossec
+        state=absent
+  ignore_errors: yes
+  when: ossec_clean_previous
+
+#- name: create folder ossec_tmp
+#  file: path=/root/ossec_tmp state=directory
+
+- name: download file ossec-wazuh
+  get_url:
+    url: https://github.com/wazuh/ossec-wazuh/archive/v{{ ossec_wazuh_version }}.tar.gz
+    dest: /root/v{{ ossec_wazuh_version }}.tar.gz
+
+- name: extract ossec-wazuh source
+  unarchive:
+    src=/root/v{{ ossec_wazuh_version }}.tar.gz
+    dest=/root/
+    creates=/root/wazuh-{{ ossec_wazuh_version }}
+    copy=no
+
+- name: Configure Preloaded ossec vars (needed for automatic installation)
+  template: src=preloaded-vars.conf.j2
+            dest=/root/wazuh-{{ ossec_wazuh_version }}/etc/preloaded-vars.conf
+
+- name: Install init script
+  copy: remote_src=yes
+        src="/root/wazuh-{{ ossec_wazuh_version }}/src/init/ossec-hids-rh.init"
+        dest=/etc/init.d/ossec
+        mode=755
+  when: ansible_os_family == "RedHat"
+
+- name: Compile and install ossec-wazuh
+  command: /root/wazuh-{{ ossec_wazuh_version }}/install.sh
+    chdir="/root/wazuh-{{ ossec_wazuh_version }}"
+    creates=/var/ossec/etc
+  notify: start ossec

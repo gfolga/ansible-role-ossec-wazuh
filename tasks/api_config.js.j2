@@ -1,0 +1,30 @@
+var config = {};
+
+// Port
+// TCP Port used by the API.
+config.port = "{{ config.port }}";
+
+// Security
+// Use HTTP protocol over TLS/SSL
+config.https = "{{ config.https }}";
+
+// Use HTTP authentication
+config.basic_auth = "{{ config.basic_auth }}";
+
+// In case the API run behind a proxy server, turn to "yes" this feature.
+config.BehindProxyServer = "no";
+
+// Cross-origin resource sharing
+config.cors = "yes";
+
+// Paths
+config.ossec_path = "/var/ossec";
+config.log_path = "/var/ossec/logs/api.log";
+config.api_path = __dirname;
+
+// Logs
+// Values for API log: disabled, info, warning, error, debug (each level includes the previous level).
+config.logs = "info";
+config.logs_tag = "WazuhAPI";
+
+module.exports = config;

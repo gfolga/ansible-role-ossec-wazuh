@@ -6,4 +6,6 @@
            state=started
            enabled=yes
 
-
+- name: restart wazuh-api
+  service: name=wazuh-api
+           state=restarted

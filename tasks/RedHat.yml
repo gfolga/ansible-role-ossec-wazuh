@@ -1,0 +1,18 @@
+---
+
+- name: Install ossec wazuh required packages for compilation
+  yum: state=latest name={{ item }}
+  with_items:
+    - gcc
+    - make
+    - git
+    - openssl-devel
+    - epel-release
+    - libselinux-python
+
+- name: Install ossec wazuh API required packages for installation
+  yum: state=latest name={{ item }} enablerepo=epel
+  with_items:
+    - nodejs
+    - npm
+  when: ossec_wazuh_api
