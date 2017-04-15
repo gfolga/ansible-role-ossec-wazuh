@@ -5,8 +5,11 @@
   notify:
     - restart ossec
 
+- name: local decoder
+  template: src=local_decoder.xml.j2 dest=/var/ossec/etc/local_decoder.xml owner=root group=ossec mode=0640
+  notify:
+    - restart ossec
+
 - name: validate rules
   command: /var/ossec/bin/ossec-logtest -t
   register: logtest
-
-  
