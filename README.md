@@ -11,8 +11,11 @@ None
 Role Variables
 --------------
 
-- ossec_email_from: Ossec email from value. Default value:ossec@smartblot.com.
-
+- ossec_wazuh_version: ossec-wazuh version, current one is 1.1.1
+- ossec_email_from: Ossec email from value.
+- ossec_email_address: Ossec email destination
+- ossec_enable_email: enable/disable email notifications, use "y" or "n"
+- ossec_clean_previous: clean previous installation
 
 Dependencies
 ------------
@@ -36,4 +39,5 @@ BSD
 Author Information
 ------------------
 
-Antonio Barbaro <antonio.barbaro@gmail.com>
+Author: Gustavo Folga
+Original Author: Antonio Barbaro <antonio.barbaro@gmail.com>
