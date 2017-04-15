@@ -11,3 +11,5 @@
 
 - include: integrator.yml
   when: ossec_wazuh_integrator
+
+- include: localrules.yml

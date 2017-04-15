@@ -1,0 +1,12 @@
+---
+
+- name: local rules
+  template: src=local_rules.xml.j2 dest=/var/ossec/rules/local_rules.xml owner=root group=ossec mode=0640
+  notify:
+    - restart ossec
+
+- name: validate rules
+  command: /var/ossec/bin/ossec-logtest -t
+  register: logtest
+
+  
