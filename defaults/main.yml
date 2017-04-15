@@ -12,6 +12,9 @@ ossec_clean_previous: true
 # Agent ID reusage
 ossec_wazuh_reuse_id: false
 
+# OSSEC Wazuh Ruleset Updates
+ossec_wazuh_update_ruleset: false
+
 # ResfulAPI
 ossec_wazuh_api: true
 ossec_wazuh_api_config_https: "no"

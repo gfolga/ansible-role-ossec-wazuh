@@ -10,6 +10,11 @@
   notify:
     - restart ossec
 
+- name: update wazuh ruleset
+  command: /var/ossec/update/ruleset/ossec_ruleset.py -s
+    chdir: /var/ossec/update/ruleset
+  when: ossec_wazuh_update_ruleset
+
 - name: validate rules
   command: /var/ossec/bin/ossec-logtest -t
   register: logtest
