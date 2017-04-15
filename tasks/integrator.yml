@@ -1,0 +1,4 @@
+---
+
+- name: enable integrator
+  command: /var/ossec/bin/ossec-control enable integrator

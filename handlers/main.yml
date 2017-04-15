@@ -6,6 +6,11 @@
            state=started
            enabled=yes
 
+- name: restart ossec
+  service: name=ossec
+           state=restarted
+           enabled=yes
+           
 - name: restart wazuh-api
   service: name=wazuh-api
            state=restarted

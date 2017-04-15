@@ -18,6 +18,7 @@
 
 - name: init script for wazuh api
   template: src=wazuh_api.j2 dest=/etc/init.d/wazuh-api owner=root group=root mode=0755
+  when: ansible_os_family == "RedHat"
 
 - name: service enabled ( wazuh api )
   service: name=wazuh-api state=started enabled=yes

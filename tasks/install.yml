@@ -47,3 +47,8 @@
     chdir="/root/wazuh-{{ ossec_wazuh_version }}"
     creates=/var/ossec/etc
   notify: start ossec
+
+- name: ossec config
+  template: src=ossec.conf.j2
+            dest=/var/ossec/etc/ossec.conf
+  notify: restart ossec

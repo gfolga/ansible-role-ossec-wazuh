@@ -17,6 +17,13 @@ Role Variables
 - ossec_enable_email: enable/disable email notifications, use "y" or "n"
 - ossec_clean_previous: clean previous installation
 
+Integrations
+
+- ossec_wazuh_integrator_slack_hook_url:
+- ossec_wazuh_integrator_pagerduty_api_key:
+- ossec_wazuh_integrator_slack_level: 4
+- ossec_wazuh_integrator_pagerduty_level: 7
+
 Dependencies
 ------------
 
