@@ -9,6 +9,9 @@ ossec_smtp_server: localhost
 ossec_enable_email: "n"
 ossec_clean_previous: true
 
+# Agent ID reusage
+ossec_wazuh_reuse_id: false
+
 # ResfulAPI
 ossec_wazuh_api: true
 ossec_wazuh_api_config_https: "no"

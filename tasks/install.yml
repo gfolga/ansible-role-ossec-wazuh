@@ -42,6 +42,13 @@
         mode=755
   when: ansible_os_family == "RedHat"
 
+- name: enable agent id reusage
+  lineinfile: dest=/root/wazuh-{{ ossec_wazuh_version }}/src/Makefile
+              regexp='^REUSE_ID'
+              line='REUSE_ID?=yes'
+              state=present
+  when: ossec_wazuh_reuse_id
+
 - name: Compile and install ossec-wazuh
   command: /root/wazuh-{{ ossec_wazuh_version }}/install.sh
     chdir="/root/wazuh-{{ ossec_wazuh_version }}"
