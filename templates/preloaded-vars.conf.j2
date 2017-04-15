@@ -11,10 +11,10 @@ USER_UPDATE_RULES="y"
 ### Server/Local Installation variables. ###
 
 # USER_ENABLE_EMAIL enables or disables email alerting.
-USER_ENABLE_EMAIL="y"
+USER_ENABLE_EMAIL="{{ ossec_enable_email }}"
 
 # USER_EMAIL_ADDRESS defines the destination e-mail of the alerts.
-USER_EMAIL_ADDRESS="antonio.barbaro@gmail.com"
+USER_EMAIL_ADDRESS="{{ ossec_email_address }}"
 
 # USER_EMAIL_SMTP defines the SMTP server to send the e-mails.
 USER_EMAIL_SMTP="localhost"
